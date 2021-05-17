@@ -77,6 +77,7 @@ namespace AppPolecanie
                     //Console.WriteLine(ch);
                 }
 
+                //TEST
                 //Console.WriteLine(polecenie.Literea);
                 if (polecenie.Literea == " ")
                 {
