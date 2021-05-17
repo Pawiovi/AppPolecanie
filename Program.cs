@@ -39,16 +39,23 @@ namespace AppPolecanie
                     //Console.WriteLine("test = " + polecenie.Polecenie);
                     //polecenie.Slowo = polecenie.Polecenie;
                     //polecenie.Polecenie = "";
-                    //rConsole.WriteLine("znak = " + ch);
-                    polecenie.Slowo = " ";
+                    //Console.WriteLine("znak = " + ch);
+                    //polecenie.Slowo = " ";
 
-                    polecenie.Literea = null;
-                    continue;
+                    polecenie.Literea = "";
+
+                    if (ch == ' ')
+                    {
+                        //polecenie.Slowo = TrescPolecenia.Substring(poczatek - i, i + poczatek + 1);
+                        Console.WriteLine("Argumenty = " + polecenie.Slowo);
+                        polecenie.Slowo = "";
+                    }
+                    //continue;
                 }
                 else
                 {
                     i++;
-                
+
                     //polecenie.Polecenie += ch;
                     polecenie.Slowo += ch;
                     polecenie.Literea = ch.ToString();
@@ -68,6 +75,7 @@ namespace AppPolecanie
                     polecenie.Polecenie = TrescPolecenia.Substring(poczatek - i, i + poczatek + 1);
                     //Console.WriteLine("test = " + polecenie.Polecenie);
                     Console.WriteLine("Polecenie = " + polecenie.Polecenie);
+                    
                 }
                 else
                 {
@@ -77,20 +85,20 @@ namespace AppPolecanie
                     //Console.WriteLine(ch);
                 }
 
-                //TEST
-                //Console.WriteLine(polecenie.Literea);
-                if (polecenie.Literea == " ")
-                {
-                    polecenie.Slowo = TrescPolecenia.Substring(poczatek - i, i + poczatek + 1);
-                    Console.WriteLine("Argumenty = " + polecenie.Slowo);
 
-                }
+                //Console.WriteLine(polecenie.Literea);
+                //if (polecenie.Literea == " ")
+                //{
+                //    //polecenie.Slowo = TrescPolecenia.Substring(poczatek - i, i + poczatek + 1);
+                //    Console.WriteLine("Argumenty = " + polecenie.Slowo);
+
+                //}
 
             }
 
 
-            Console.WriteLine("koniec = " + koniec);
-            Console.WriteLine("poczatek = " + poczatek);
+            //Console.WriteLine("koniec = " + koniec);
+            //Console.WriteLine("poczatek = " + poczatek);
             //Console.WriteLine("i = " + i);
 
             //Console.WriteLine("Polecenie = " + polecenie.Polecenie);
