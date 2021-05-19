@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.CodeDom;
+using System.CodeDom.Compiler;
 
 namespace AppPolecanie
 {
     public class Polecenia
     {
+        
         public string Polecenie { get; set; }
 
         public string Slowo { get; set; }
@@ -16,6 +19,7 @@ namespace AppPolecanie
 
         public Dictionary<string, string> Opcje { get; set; } = new Dictionary<string, string>();
 
+        
 
         public override string ToString()
         {
@@ -31,7 +35,17 @@ namespace AppPolecanie
             strb.AppendLine("Opcja");
             foreach (KeyValuePair<string, string> item in Opcje)
             {
-                strb.AppendLine($@"""{item.Key}"":" + $@"""{item.Value}"""); //""\item.Value"\");
+                //DODANE CZY SPEC
+                if (Znak == "\n")
+                {
+                    strb.AppendLine($@"""{item.Key}"":" + "\\"+ Znak + " " + $@"""{item.Value}""");
+                }
+                else
+                {
+                    //CZY SPEC PIERWTNE
+                    strb.AppendLine($@"""{item.Key}"":" + $@"""{item.Value}"""); //""\item.Value"\");
+                }
+                
             }
             return strb.ToString();
         }
