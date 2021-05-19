@@ -26,12 +26,12 @@ namespace AppPolecanie
             var strb = new StringBuilder();
             var typ = TypDanych.Polecenie;
             bool bylaOpcja = false;
-
+            bool jestCudzyslow = false;
             while (i < TrescPolecenia.Length)
             {
 
                 var ch = TrescPolecenia[i++];
-                if (char.IsWhiteSpace(ch))
+                if (char.IsWhiteSpace(ch) && !jestCudzyslow)
                 {
                     switch (typ)
                     {
@@ -53,8 +53,10 @@ namespace AppPolecanie
                             //polecenie.Opcje[polecenie.Opcje.Keys.Last()] = strb.ToString();
                             polecenie.Opcje[polecenie.Opcje.Keys.Last()] = strb.ToString();
                             bylaOpcja = false;
-                          
-                                break;
+
+                            break;
+
+
                         default:
                             break;
                     }
@@ -64,10 +66,11 @@ namespace AppPolecanie
                 }
                 else
                 {
-                    if (typ == TypDanych.Brak)
+                    if (typ == TypDanych.Brak && !jestCudzyslow)
                     {
                         if (ch == '-')
                         {
+
                             typ = TypDanych.Opcje;
                             bylaOpcja = false;
 
@@ -77,27 +80,53 @@ namespace AppPolecanie
                         {
                             if (bylaOpcja == true)
                             {
+                                //i--;
+
+                                //while (ch == '"')
+                                //{
+                                //    //i++;
+                                //    polecenie.Slowo += ch;
+                                //    Console.WriteLine(polecenie.Slowo);
+
+                                //    //continue;
+                                //}
 
                                 //TU SKOŃCZYŁEM
+                                //if (ch == '"')
+                                //{
+
+                                //while (ch.ToString() != ", " || ch == '"')
+                                //{
+                                //    i++;
+                                //    polecenie.Slowo += ch;
+                                //    typ = TypDanych.OpcjaWartosc;
+                                //}
+
+                                //}
+                                typ = TypDanych.OpcjaWartosc;
                                 if (ch == '"')
                                 {
-
-                                    typ = TypDanych.OpcjaWartosc;
-                                    continue;
+                                    jestCudzyslow = true;
                                 }
-                                typ = TypDanych.OpcjaWartosc;
-
+                                continue;
                             }
                             else
                             {
                                 typ = TypDanych.Argument;
+                                {
+                                    jestCudzyslow = true;
+                                    continue;
+                                }
                             }
                         }
+                    }
+                    else if (jestCudzyslow && ch == '"')
+                    {
+                        continue;
                     }
 
 
                     strb.Append(ch);
-
                 }
 
             }

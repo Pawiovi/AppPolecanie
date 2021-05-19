@@ -20,7 +20,7 @@ namespace AppPolecanie
         {
             var strb = new StringBuilder();
             strb.AppendLine(@$"Polecenie = ""{Polecenie}""");
-            
+
             strb.AppendLine("Argumenty");
             foreach (var item in Argumenty)
             {
