@@ -16,6 +16,7 @@ namespace AppPolecanie
 
         public Dictionary<string, string> Opcje { get; set; } = new Dictionary<string, string>();
 
+
         public override string ToString()
         {
             var strb = new StringBuilder();

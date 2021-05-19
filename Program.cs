@@ -15,8 +15,8 @@ namespace AppPolecanie
             //string TrescPolecenia = " Def string tryb -domyslny debug ";
             //string TrescPolecenia = "Def string tryb -domyslny debug -elementy 1,2,3,4 -resetuj -separator ,";
             //string TrescPolecenia = "Def string tryb -domyslny debug -elementy 1,2,3,4 xxx -resetuj -separator ,";
-            string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"1, 2, 3, 4\" -resetuj -separator ,";
-            //string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\n1, \"2\", \n3, \\4\" -resetuj -separator ,";
+            //string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"1, 2, 3, 4\" -resetuj -separator ,";
+            string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\n1, \"2\", \n3, \\4\" -resetuj -separator ,";
 
             TrescPolecenia = TrescPolecenia.Trim();//TRIM usuwa wszytskie białe znaki
             int i = 0;
@@ -107,12 +107,14 @@ namespace AppPolecanie
                                 if (ch == '"')
                                 {
                                     jestCudzyslow = true;
+                                    continue;
                                 }
-                                continue;
+                              
                             }
                             else
                             {
                                 typ = TypDanych.Argument;
+                                if (ch == '"')
                                 {
                                     jestCudzyslow = true;
                                     continue;
@@ -122,6 +124,7 @@ namespace AppPolecanie
                     }
                     else if (jestCudzyslow && ch == '"')
                     {
+                        jestCudzyslow = false;
                         continue;
                     }
 
