@@ -23,22 +23,28 @@ namespace AppPolecanie
 
         public override string ToString()
         {
+            //POLECENIE
             var strb = new StringBuilder();
+            strb.AppendLine("");
             strb.AppendLine(@$"Polecenie = ""{Polecenie}""");
 
+            //ARGUMENTY 
+            strb.AppendLine("");
             strb.AppendLine("Argumenty");
             foreach (var item in Argumenty)
             {
                 strb.AppendLine($@"""{item}""");
             }
 
+            //OPCJE I WARTOŚCI OPCJI
+            strb.AppendLine("");
             strb.AppendLine("Opcja");
             foreach (KeyValuePair<string, string> item in Opcje)
             {
                 //DODANE CZY SPEC
-                if (Znak == "\n")
+                if (Znak == "n")
                 {
-                    strb.AppendLine(Environment.NewLine + " " + $@"""{item.Value}""");
+                    strb.AppendLine(Environment.NewLine + $@"""{item.Value}""");
                 }
                 else
                 {

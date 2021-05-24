@@ -15,9 +15,9 @@ namespace AppPolecanie
             //string TrescPolecenia = " Def string tryb -domyslny debug ";
             //string TrescPolecenia = "Def string tryb -domyslny debug -elementy 1,2,3,4 -resetuj -separator ,";
             //string TrescPolecenia = "Def string tryb -domyslny debug -elementy 1,2,3,4 xxx -resetuj -separator ,";
-            string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"1, 2, 3, 4\" -resetuj -separator ,";
-            //string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\n1, \"2\", \n3, \\4\" -resetuj -separator ,";
-           
+            //string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"1, 2, 3, 4\" -resetuj -separator ,";
+            //string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\\\n1, \\\"2\\\" ,\\n3, \\\\4\" -resetuj -separator ,";
+            string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\\\n1, 2, \\n3, \\\\4\" -resetuj -separator ,";
             TrescPolecenia = TrescPolecenia.Trim();//TRIM usuwa wszytskie białe znaki
             int i = 0;
 
@@ -29,14 +29,12 @@ namespace AppPolecanie
             bool jestCudzyslow = false;
             bool jestSpec = false;
 
-
-
             while (i < TrescPolecenia.Length)
             {
 
                 var ch = TrescPolecenia[i++];
 
-                //DODANE CZY SPEC
+                //DODANE JESTSPEC
                 polecenie.Znak = ch.ToString();
                 if (char.IsWhiteSpace(ch) && !jestCudzyslow)
                 {
@@ -60,10 +58,8 @@ namespace AppPolecanie
                             //polecenie.Opcje[polecenie.Opcje.Keys.Last()] = strb.ToString();
                             polecenie.Opcje[polecenie.Opcje.Keys.Last()] = strb.ToString();
                             bylaOpcja = false;
-                            jestSpec = false;
-
+                            //SjestSpec = false;
                             break;
-
 
                         default:
                             break;
@@ -74,8 +70,10 @@ namespace AppPolecanie
                 }
                 else
                 {
+
                     if (typ == TypDanych.Brak && !jestCudzyslow)
                     {
+
                         if (ch == '-')
                         {
 
@@ -86,48 +84,63 @@ namespace AppPolecanie
                         }
                         else
                         {
+
                             if (bylaOpcja == true)
                             {
-                               
+
                                 typ = TypDanych.OpcjaWartosc;
-                                if (ch == '"')                            
+                                
+                                if (ch == '"')
                                 {
+
                                     jestCudzyslow = true;
+
+                                           //if (ch == '\\')
+                                           // {
+                                           //     i++;
+                                           //     if(ch == 'n')
+                                           //     {
+                                           //         jestSpec = true;
+                                           //         i--;
+                                           //     }
+
+                                           // }
+                                    
                                     continue;
+                                    
                                 }
 
-                                //
-                                //CZY SPEC
-                                if (ch == '\\')
-                                {
-                                    ch++;
-                                    if (ch == 'n')
-                                    {
-                                        jestSpec = true;
-                                        polecenie.Znak = ch.ToString();
-                                        continue;
-                                    }
-                                    else
-                                    {
-                                        ch--;
-                                        continue;
-                                    }
 
-                                    //jestSpec = true;
-                                    //polecenie.Znak = ch.ToString();
-                                    //continue;
-                                }     
-                                
+                                ////CZY SPEC
+                                //if (ch == '\\')
+                                //{
+
+                                //    //if (ch == 'n')
+                                //    //{
+                                //    jestSpec = true;
+                                //    polecenie.Znak = ch.ToString();
+                                //    continue;
+                                //    //}
+                                //    //else
+                                //    //{
+                                //    //    i--;
+                                //    //    continue;
+                                //    //}
+
+                                //    //jestSpec = true;
+                                //    //polecenie.Znak = ch.ToString();
+                                //    //continue;
+                                //}
                             }
                             else
                             {
                                 typ = TypDanych.Argument;
+                                //typ = TypDanych.OpcjaWartosc;
                                 if (ch == '"')
                                 {
                                     jestCudzyslow = true;
                                     continue;
                                 }
-
                             }
                         }
                     }
@@ -136,11 +149,11 @@ namespace AppPolecanie
                         jestCudzyslow = false;
                         continue;
                     }
+
+
                     strb.Append(ch);
                 }
-
             }
-
             switch (typ)
             {
                 case TypDanych.Polecenie:
@@ -160,11 +173,14 @@ namespace AppPolecanie
                     break;
             }
 
-            Console.WriteLine("=================================================================================================");
+            Console.WriteLine("====================================================================================================================");
             Console.WriteLine("Treść polecenia = " + TrescPolecenia);
-            Console.WriteLine("=================================================================================================");
+            Console.WriteLine("====================================================================================================================");
 
             Console.WriteLine(polecenie);
+
+            Console.WriteLine("====================================================================================================================");
+            
 
         }
     }
