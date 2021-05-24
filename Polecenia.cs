@@ -38,12 +38,13 @@ namespace AppPolecanie
                 //DODANE CZY SPEC
                 if (Znak == "\n")
                 {
-                    strb.AppendLine($@"""{item.Key}"":" + "\\"+ Znak + " " + $@"""{item.Value}""");
+                    strb.AppendLine(Environment.NewLine + " " + $@"""{item.Value}""");
                 }
                 else
                 {
-                    //CZY SPEC PIERWTNE
+                    //PIERWOTNE
                     strb.AppendLine($@"""{item.Key}"":" + $@"""{item.Value}"""); //""\item.Value"\");
+                    
                 }
                 
             }
