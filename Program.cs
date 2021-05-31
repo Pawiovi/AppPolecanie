@@ -16,8 +16,8 @@ namespace AppPolecanie
             //string TrescPolecenia = "Def string tryb -domyslny debug -elementy 1,2,3,4 -resetuj -separator ,";
             //string TrescPolecenia = "Def string tryb -domyslny debug -elementy 1,2,3,4 xxx -resetuj -separator ,";
             //string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"1, 2, 3, 4\" -resetuj -separator ,";
-            string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\\\n1, \\\"2\\\", \\n3, \\\\4\" -resetuj -separator ,";
-            //string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\\\n1, 2, \\n3, \\\\4\" -resetuj -separator ,";
+            string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\\\n1, \\\"2\\\", \\n3, \\\\4\" -resetuj -separator , \\";
+           
             TrescPolecenia = TrescPolecenia.Trim();//TRIM usuwa wszytskie białe znaki
             int i = 0;
 
@@ -29,12 +29,13 @@ namespace AppPolecanie
             bool jestCudzyslow = false;
             bool jestSpec = false;
 
+
+            
             while (i < TrescPolecenia.Length)
             {
-
+                
                 var ch = TrescPolecenia[i++];
-
-                //DODANE JESTSPEC
+ 
                 polecenie.Znak = ch.ToString();
                 if (char.IsWhiteSpace(ch) && !jestCudzyslow)
                 {
@@ -54,8 +55,7 @@ namespace AppPolecanie
                             bylaOpcja = true;
 
                             break;
-                        case TypDanych.OpcjaWartosc:
-                            //polecenie.Opcje[polecenie.Opcje.Keys.Last()] = strb.ToString();
+                        case TypDanych.OpcjaWartosc:                            
                             polecenie.Opcje[polecenie.Opcje.Keys.Last()] = strb.ToString();
                             bylaOpcja = false;
                             jestSpec = false;
@@ -99,22 +99,12 @@ namespace AppPolecanie
 
                                 }
 
-                                //CZY SPEC
-                                //if (ch=='n')
-                                //{
-
-                                //    jestSpec = true;
-                                //    polecenie.Znak = ch.ToString();
-                                //    continue;
-
-                                //}
                             }
 
 
                             else
                             {
-                                typ = TypDanych.Argument;
-                                //typ = TypDanych.OpcjaWartosc;
+                                typ = TypDanych.Argument;                               
                                 if (ch == '"')
                                 {
                                     jestCudzyslow = true;
@@ -127,6 +117,11 @@ namespace AppPolecanie
                     {
                         if (ch == '\\')
                         {
+                            if (i == TrescPolecenia.Length)
+                            {
+                                break;
+                            }
+                            else
                             if (TrescPolecenia[i] == 'n')
                             {
 
@@ -165,15 +160,17 @@ namespace AppPolecanie
                             jestCudzyslow = false;
                             continue;
                         }
-
-                        //nie jestem pewny czt o to chodziło
-                        if (i == TrescPolecenia.Length)
+                        else if (ch == '-')
                         {
-                            break;
+                            typ = TypDanych.Opcje;
+                            bylaOpcja = false;
+
+                            continue;
                         }
+                        
                     }
 
-                    //TU ?
+                 
                     strb.Append(ch);
                 }
             }
