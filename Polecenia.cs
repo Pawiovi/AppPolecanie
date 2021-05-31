@@ -42,11 +42,11 @@ namespace AppPolecanie
             foreach (KeyValuePair<string, string> item in Opcje)
             {
                 //DODANE CZY SPEC
-                if (Znak == "n")
-                {
-                    strb.AppendLine(Environment.NewLine + $@"""{item.Value}""");
-                }
-                else
+                //if (Znak == "n")
+                //{
+                //    strb.AppendLine(Environment.NewLine + $@"""{item.Value}""");
+                //}
+                //else
                 {
                     //PIERWOTNE
                     strb.AppendLine($@"""{item.Key}"":" + $@"""{item.Value}"""); //""\item.Value"\");

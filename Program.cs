@@ -16,8 +16,8 @@ namespace AppPolecanie
             //string TrescPolecenia = "Def string tryb -domyslny debug -elementy 1,2,3,4 -resetuj -separator ,";
             //string TrescPolecenia = "Def string tryb -domyslny debug -elementy 1,2,3,4 xxx -resetuj -separator ,";
             //string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"1, 2, 3, 4\" -resetuj -separator ,";
-            //string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\\\n1, \\\"2\\\" ,\\n3, \\\\4\" -resetuj -separator ,";
-            string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\\\n1, 2, \\n3, \\\\4\" -resetuj -separator ,";
+            string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\\\n1, \\\"2\\\", \\n3, \\\\4\" -resetuj -separator ,";
+            //string TrescPolecenia = "Def string tryb -domyslny debug -elementy \"\\\\n1, 2, \\n3, \\\\4\" -resetuj -separator ,";
             TrescPolecenia = TrescPolecenia.Trim();//TRIM usuwa wszytskie białe znaki
             int i = 0;
 
@@ -58,7 +58,7 @@ namespace AppPolecanie
                             //polecenie.Opcje[polecenie.Opcje.Keys.Last()] = strb.ToString();
                             polecenie.Opcje[polecenie.Opcje.Keys.Last()] = strb.ToString();
                             bylaOpcja = false;
-                            //SjestSpec = false;
+                            jestSpec = false;
                             break;
 
                         default:
@@ -89,49 +89,28 @@ namespace AppPolecanie
                             {
 
                                 typ = TypDanych.OpcjaWartosc;
-                                
+
                                 if (ch == '"')
                                 {
 
                                     jestCudzyslow = true;
 
-                                           //if (ch == '\\')
-                                           // {
-                                           //     i++;
-                                           //     if(ch == 'n')
-                                           //     {
-                                           //         jestSpec = true;
-                                           //         i--;
-                                           //     }
-
-                                           // }
-                                    
                                     continue;
-                                    
+
                                 }
 
-
-                                ////CZY SPEC
-                                //if (ch == '\\')
+                                //CZY SPEC
+                                //if (ch=='n')
                                 //{
 
-                                //    //if (ch == 'n')
-                                //    //{
                                 //    jestSpec = true;
                                 //    polecenie.Znak = ch.ToString();
                                 //    continue;
-                                //    //}
-                                //    //else
-                                //    //{
-                                //    //    i--;
-                                //    //    continue;
-                                //    //}
 
-                                //    //jestSpec = true;
-                                //    //polecenie.Znak = ch.ToString();
-                                //    //continue;
                                 //}
                             }
+
+
                             else
                             {
                                 typ = TypDanych.Argument;
@@ -144,13 +123,57 @@ namespace AppPolecanie
                             }
                         }
                     }
-                    else if (jestCudzyslow && ch == '"')
+                    else if (jestCudzyslow)
                     {
-                        jestCudzyslow = false;
-                        continue;
+                        if (ch == '\\')
+                        {
+                            if (TrescPolecenia[i] == 'n')
+                            {
+
+                                ch = '\n';
+                                i++;
+                            }
+                            else
+                            if (TrescPolecenia[i] == '\\')
+                            {
+
+                                ch = '\\';
+                                i++;
+                            }
+                            else
+                            if (TrescPolecenia[i] == '\"')
+                            {
+
+                                ch = '"';
+                                i++;
+                            }
+                            if (TrescPolecenia[i] == 't')
+                            {
+
+                                ch = '\t';
+                                i++;
+                            }
+                            if (TrescPolecenia[i] == 'r')
+                            {
+
+                                ch = '\r';
+                                i++;
+                            }
+                        }
+                        else if (ch == '"')
+                        {
+                            jestCudzyslow = false;
+                            continue;
+                        }
+
+                        //nie jestem pewny czt o to chodziło
+                        if (i == TrescPolecenia.Length)
+                        {
+                            break;
+                        }
                     }
 
-
+                    //TU ?
                     strb.Append(ch);
                 }
             }
@@ -174,13 +197,13 @@ namespace AppPolecanie
             }
 
             Console.WriteLine("====================================================================================================================");
-            Console.WriteLine("Treść polecenia = " + TrescPolecenia);
+            Console.WriteLine("Treść polecenia : " + TrescPolecenia);
             Console.WriteLine("====================================================================================================================");
 
             Console.WriteLine(polecenie);
 
             Console.WriteLine("====================================================================================================================");
-            
+
 
         }
     }
